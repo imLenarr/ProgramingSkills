@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Data Fetching</title>
+    <link rel="stylesheet" href="grade.css" />
+  </head>
+  <body>
+    <h1>เครื่องคำนวณเกรดนักศึกษา</h1>
+
+    <div>
+      <h2>ให้ใส่คะแนน 5 วิชา</h2>
+
+      <table id="grade-table">
+        <thead>
+          <tr>
+            <th>รหัสวิชา</th>
+            <th>คะแนนที่ได้</th>
+            <th>จำนวนหน่วยกิต</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CSI101</td>
+            <td>
+              <input
+                type="number"
+                class="score-input"
+                min="0"
+                max="100"
+                placeholder="0 - 100"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="credit-input"
+                min="1"
+                max="6"
+                value="3"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>CSI102</td>
+            <td>
+              <input
+                type="number"
+                class="score-input"
+                min="0"
+                max="100"
+                placeholder="0 - 100"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="credit-input"
+                min="1"
+                max="6"
+                value="3"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>CSI203</td>
+            <td>
+              <input
+                type="number"
+                class="score-input"
+                min="0"
+                max="100"
+                placeholder="0 - 100"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="credit-input"
+                min="1"
+                max="6"
+                value="3"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>CSI204</td>
+            <td>
+              <input
+                type="number"
+                class="score-input"
+                min="0"
+                max="100"
+                placeholder="0 - 100"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="credit-input"
+                min="1"
+                max="6"
+                value="3"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>CSI305</td>
+            <td>
+              <input
+                type="number"
+                class="score-input"
+                min="0"
+                max="100"
+                placeholder="0 - 100"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="credit-input"
+                min="1"
+                max="6"
+                value="3"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="error-message" class="error">
+        กรุณากรอกคะแนนให้ครบทุกช่อง และอยู่ในช่วง 0-100
+      </div>
+
+      <div class="button-container">
+        <button id="calculate-btn">คำนวณเกรดเฉลี่ย (GPA)</button>
+      </div>
+
+      <div id="result-container" class="result-container" style="display: none">
+        <h2>ผลการคำนวณ</h2>
+
+        <div id="grades-container">
+          <!-- Grade results will be displayed here -->
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">คะแนนเฉลี่ย (เปอร์เซ็นต์):</span>
+          <span id="average-percentage" class="result-value">0</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">เกรดเฉลี่ย (GPA):</span>
+          <span id="gpa" class="result-value">0.00</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">หน่วยกิตทั้งหมด:</span>
+          <span id="total-credits" class="result-value">0</span>
+        </div>
+      </div>
+    </div>
+    <script src="grade.js"></script>
+  </body>
+</html>

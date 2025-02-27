@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lottery Generator</title>
+    <link rel="stylesheet" href="lotto.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>ระบบสุ่มเลขหวย</h1>
+
+      <div class="lottery-box" id="lottery-box">
+        <div class="lottery-number" id="lottery-number">------</div>
+      </div>
+
+      <div id="guess-section" class="shown">
+        <div class="input-group">
+          <input
+            type="text"
+            id="guess-input"
+            maxlength="6"
+            placeholder="ใส่เลข 6 หลัก"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 6);"
+          />
+        </div>
+
+        <button id="check-btn" class="success">ตรวจรางวัล</button>
+
+        <div id="result" class="result">
+          <!-- Result will be shown here -->
+        </div>
+      </div>
+
+      <div class="history" id="history-section">
+        <h3>ประวัติการทาย</h3>
+        <div class="history-list" id="history-list">
+          <!-- History will be added here -->
+          <div class="history-item">ยังไม่มีประวัติการทาย</div>
+        </div>
+      </div>
+    </div>
+    <script src="lotto.js"></script>
+  </body>
+</html>
