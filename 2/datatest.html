@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ทดสอบฟังก์ชัน JavaScript</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+      align-items: center;
+    }
+    h1 {
+      font-size: 2em;
+      color: #4CAF50;
+    }
+    button {
+      margin: 10px 0;
+      padding: 15px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+    button:active {
+      background-color: #388e3c;
+      transform: translateY(2px);
+    }
+    button:focus {
+      outline: none;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .content {
+      text-align: left;
+      font-size: 1.2em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ทดสอบฟังก์ชัน JavaScript</h1>
+
+  <div class="container">
+    <label for="user-input">กรุณากรอกข้อมูล: </label>
+    <input type="text" id="user-input" placeholder="กรอกข้อมูล">
+    <button id="check-type">ตรวจสอบประเภทข้อมูล</button>
+
+    <p id="output"></p>
+  </div>
+
+  <script>
+    document.getElementById("check-type").addEventListener("click", function () {
+      const userInput = document.getElementById("user-input").value;
+
+      let output = '';
+      if (userInput === "") {
+        output = "กรุณากรอกข้อมูล";
+      } else {
+        // ตรวจสอบประเภทของข้อมูลที่รับมา
+        const inputType = typeof userInput;
+
+        // ตรวจสอบว่าเป็นตัวเลขหรือไม่
+        if (!isNaN(userInput)) {
+          output = `ข้อมูลประเภท: Number (${userInput})`;
+        } else if (userInput === "true" || userInput === "false") {
+          // ถ้าเป็น Boolean
+          output = `ข้อมูลประเภท: Boolean (${userInput})`;
+        } else {
+          output = `ข้อมูลประเภท: String (${userInput})`;
+        }
+      }
+
+      // แสดงผลลัพธ์
+      document.getElementById("output").innerText = output;
+    });
+  </script>
+
+</body>
+</html>

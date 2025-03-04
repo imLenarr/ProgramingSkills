@@ -10,8 +10,18 @@ function calculateArea() {
 // ฟังก์ชันตรวจสอบอายุและกำหนดหมวดหมู่
 function checkAge() {
   let age = document.getElementById("age").value;
-  let category = age < 13 ? "เด็ก" : age < 20 ? "วัยรุ่น" : "ผู้ใหญ่";
-  document.getElementById("age-result").innerText = "Category: " + category;
+  let result = "";
+
+  if (age <= 0) {
+    result = "ไม่ได้จ้า";
+  } else if (age < 13) {
+    result = "เด็ก";
+  } else if (age >= 13 && age <= 19) {
+    result = "วัยรุ่น";
+  } else {
+    result = "แก่แล้ว";
+  }
+  document.getElementById("age-result").innerText = result;
 }
 
 // ฟังก์ชันตรวจสอบเลขคู่หรือเลขคี่
@@ -25,7 +35,7 @@ function checkEvenOdd() {
 function showNumbers() {
   let result = "";
   // ใช้ลูป for เพื่อแสดงเลขจาก 1 ถึง 10
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 50; i >= 1; i--) {
     result += i + " "; // เพิ่มหมายเลขที่กำลังแสดงในตัวแปร result
     console.log("Adding number:", i); // แสดงในคอนโซลว่าเลขที่กำลังเพิ่มคืออะไร
   }
@@ -63,19 +73,27 @@ function sortArray() {
 // ฟังก์ชันคำนวณแฟค
 function calculateFactorial() {
   function factorial(n) {
-    return n === 0 ? 1 : n * factorial(n - 1); 
-    // ถ้า n = 0 คืนค่า 1, ถ้าไม่คืนค่า n * factorial(n-1)
+    if (n === 0) {
+      return 1;
+    }
+    return n === 1 ? 1 : n * factorial(n - 1);
   }
-  let num = document.getElementById("factorial-input").value;
-  document.getElementById("factorial-result").innerText =
-    "Factorial: " + factorial(num);
+
+  let num = parseInt(document.getElementById("factorial-input").value);
+  if (isNaN(num) || num < 0) {
+    document.getElementById("factorial-result").innerText =
+      "Please enter a valid positive number!";
+  } else {
+    document.getElementById("factorial-result").innerText =
+      "Factorial: " + factorial(num);
+  }
 }
 
 // ฟังก์ชันคำนวณลำดับฟีโบ
 function calculateFibonacci() {
   function fibonacci(n) {
     return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-   // ถ้า n <= 1 คืนค่า n, ถ้าไม่คืนค่า fibonacci(n-1) + fibonacci(n-2)
+    // ถ้า n <= 1 คืนค่า n, ถ้าไม่คืนค่า fibonacci(n-1) + fibonacci(n-2)
   }
   let num = document.getElementById("fibonacci-input").value;
   document.getElementById("fibonacci-result").innerText =
@@ -84,23 +102,34 @@ function calculateFibonacci() {
 
 // ฟังก์ชันทดสอบการดีบัก (Debugging)
 function testDebugging() {
+  console.log("เริ่มต้น Debugging Tools");
+
+  // ตัวอย่าง Debugging Tools
+  let x = 10;
+  console.log("ค่าของ x:", x);
+
+  let a = 5,
+    b = 10;
+  let sumDebug = a + b;
+  debugger; // หยุดโค้ดที่บรรทัดนี้เมื่อใช้ DevTools เพื่อตรวจสอบค่า
+  console.log("ผลรวมของ a + b:", sumDebug);
+
+  console.log("สิ้นสุด Debugging Tools");
+
+  console.log("เริ่มต้น Exception Handling");
+
   try {
-    // แสดงข้อความในคอนโซลเพื่อบอกว่าเริ่มการดีบัก
-    console.log("Debugging test started");
-    // ขอให้ผู้ใช้กรอกข้อมูล
-    let testValue = prompt("Enter a number:");
-    // ถ้าผู้ใช้กรอกข้อมูลไม่ได้ จะแสดงข้อผิดพลาด
-    if (!testValue) throw "Input cannot be empty!";
-    // แปลงค่าที่ผู้ใช้กรอกเป็นตัวเลข
-    let num = parseFloat(testValue);
-    // ถ้าค่าที่กรอกไม่ใช่ตัวเลข จะแสดงข้อผิดพลาด
-    if (isNaN(num)) throw "Not a valid number!";
-    console.log("User entered:", num);
-    document.getElementById("debug-result").innerText = "Valid input: " + num;
+    console.log("กำลังดำเนินการหาร...");
+    let num = 10;
+    let divisor = 0; // กำหนดตัวหารเป็น 0 ซึ่งอาจทำให้เกิดปัญหา
+    if (divisor === 0) {
+      throw new Error("ไม่สามารถหารด้วยศูนย์ได้!");
+    }
+    let result = num / divisor;
+    console.log("ผลลัพธ์:", result);
   } catch (error) {
-    console.error("Error caught:", error);
-    alert("Error: " + error);
+    console.error("เกิดข้อผิดพลาด:", error.message);
   } finally {
-    console.log("Debugging test finished");
+    console.log("จบการทำงานของ try-catch-finally");
   }
 }
