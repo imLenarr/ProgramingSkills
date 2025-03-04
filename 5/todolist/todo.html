@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List Web App</title>
+    <link rel="stylesheet" href="todo.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>To-Do List</h1>
+
+      <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+        <button class="filter-btn" data-filter="active">ยังไม่เสร็จ</button>
+        <button class="filter-btn" data-filter="completed">เสร็จสิ้น</button>
+      </div>
+
+      <div class="input-section">
+        <input type="text" id="todo-input" placeholder="เพิ่มงานที่ต้องทำ..." />
+        <button id="add-button">เพิ่ม</button>
+      </div>
+
+      <div id="todo-list">
+        <!-- Todo items will be added here dynamically -->
+        <div class="empty-list">ไม่มีรายการ - เพิ่มรายการใหม่!</div>
+      </div>
+    </div>
+
+    <script src="todo.js"></script>
+  </body>
+</html>
