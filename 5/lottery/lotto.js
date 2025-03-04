@@ -1,19 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Elements
-  const lotteryBox = document.getElementById("lottery-box");
-  const lotteryNumber = document.getElementById("lottery-number");
-  const checkBtn = document.getElementById("check-btn");
-  const guessInput = document.getElementById("guess-input");
-  const resultDiv = document.getElementById("result");
-  const historyList = document.getElementById("history-list");
+  const lotteryBox = document.getElementById("lottery-box"); // กล่องที่แสดงหมายเลขลอตเตอรี่
+  const lotteryNumber = document.getElementById("lottery-number"); // เลขที่ออก
+  const checkBtn = document.getElementById("check-btn"); // ปุ่มการตรวจสอบการทาย
+  const guessInput = document.getElementById("guess-input"); // เลขที่ทาย
+  const resultDiv = document.getElementById("result"); // ผลการทาย
+  const historyList = document.getElementById("history-list"); // ประวัติการทาย
 
-  // Variables
+  // ตัวแปรเก็บประวัติการทายที่ดึงจาก localStorage หรือกำหนดเป็นอาร์เรย์ว่างหากไม่พบ
   let history = JSON.parse(localStorage.getItem("lotteryHistory")) || [];
-
-  // Initialize
+  // เริ่มต้นการแสดงประวัติ
   renderHistory();
 
-  // Generate random 6-digit number
+  // ฟังก์ชันในการสร้างหมายเลขลอตเตอรี่ 6 หลักแบบสุ่ม
   function generateLotteryNumber() {
     let randomNumber = "";
     for (let i = 0; i < 6; i++) {
@@ -22,60 +20,63 @@ document.addEventListener("DOMContentLoaded", function () {
     return randomNumber;
   }
 
-  // Check if the guess matches the generated number
+  // ฟังก์ชันตรวจสอบการทาย
   function checkGuess() {
-    const guess = guessInput.value;
+    const guess = guessInput.value; // เก็บค่าทายของผู้ใช้
 
-    // Validate input
+    // ตรวจสอบความถูกต้องของข้อมูล (ต้องเป็นตัวเลข 6 หลัก)
     if (guess.length !== 6 || !/^\d+$/.test(guess)) {
-      alert("กรุณาใส่เลข 6 หลัก");
+      alert("กรุณาใส่เลข 6 หลัก"); // แจ้งเตือนหากผู้ใช้ไม่กรอกตัวเลข 6 หลัก
       return;
     }
 
-    // Generate a number after the user inputs a guess
+    // สร้างเลขลอตเตอรี่เมื่อผู้ใช้กดปุ่ม
     const winningNumber = generateLotteryNumber();
-    lotteryNumber.textContent = winningNumber;
-
-    // Check if guess matches
+    lotteryNumber.textContent = winningNumber; // แสดงเลขที่ออก
+    // ตรวจสอบ
     const isWinner = guess === winningNumber;
-
-    // Display result
+    // แสดงผลลัพธ์การทาย
     resultDiv.className = isWinner ? "result win" : "result lose";
     resultDiv.innerHTML = isWinner
       ? `<h3>🎉 ยินดีด้วย! คุณถูกรางวัล 🎉</h3><div class="result-details">เลขที่ออก: ${winningNumber}</div>`
       : `<h3>เสียใจด้วย! คุณไม่ถูกรางวัล</h3><div class="result-details">เลขที่ออก: ${winningNumber}<br>เลขที่คุณทาย: ${guess}</div>`;
     resultDiv.style.display = "block";
 
-    // Add to history
+    // เพิ่มข้อมูลการทายลงในประวัติ
     const historyItem = {
-      timestamp: new Date().toISOString(),
-      guess: guess,
-      winning: winningNumber,
-      isWinner: isWinner,
+      timestamp: new Date().toISOString(), // เวลาที่ทาย
+      guess: guess, // เลขที่ทาย
+      winning: winningNumber, // เลขที่ออก
+      isWinner: isWinner, // ผลลัพธ์ (ถูกรางวัลหรือไม่)
     };
 
-    history.unshift(historyItem);
-    if (history.length > 10) history.pop(); // Keep only latest 10 entries
-
-    // Save history to localStorage
+    history.unshift(historyItem); // เพิ่มข้อมูลที่ทายใหม่ไปข้างหน้า
+    if (history.length > 10) history.pop(); // เก็บประวัติการทายแค่ 10 รายการล่าสุด
+    // บันทึกประวัติการทายลงใน localStorage
     localStorage.setItem("lotteryHistory", JSON.stringify(history));
-
-    // Update history display
+    // อัปเดตการแสดงผลประวัติการทาย
     renderHistory();
   }
 
-  // Render history items
+  // ฟังก์ชันในการแสดงประวัติการทาย
   function renderHistory() {
     if (history.length === 0) {
-      historyList.innerHTML = '<div class="history-item">ยังไม่มีประวัติการทาย</div>';
+      historyList.innerHTML =
+        '<div class="history-item">ยังไม่มีประวัติการทาย</div>'; // ถ้ายังไม่มีประวัติการทาย
       return;
     }
 
-    historyList.innerHTML = "";
+    historyList.innerHTML = ""; // ล้างประวัติเดิม
     history.forEach((item) => {
-      const date = new Date(item.timestamp);
-      const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, "0")}`;
+      const date = new Date(item.timestamp); // แปลง timestamp เป็นวันที่
+      const formattedDate = `${date.getDate()}/${
+        date.getMonth() + 1
+      }/${date.getFullYear()} ${date.getHours()}:${date
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
 
+      // สร้าง HTML สำหรับแต่ละรายการในประวัติการทาย
       const historyItem = document.createElement("div");
       historyItem.className = "history-item";
       historyItem.innerHTML = `
@@ -87,14 +88,12 @@ document.addEventListener("DOMContentLoaded", function () {
                   ${item.isWinner ? "ถูกรางวัล!" : "ไม่ถูก"}
               </div>
           `;
-      historyList.appendChild(historyItem);
+      historyList.appendChild(historyItem); // เพิ่มรายการประวัติลงในหน้าจอ
     });
   }
-
   // Event Listeners
-  checkBtn.addEventListener("click", checkGuess);
-
-  // Allow Enter key to submit
+  checkBtn.addEventListener("click", checkGuess); // เมื่อคลิกปุ่มให้ตรวจสอบการทาย
+  // รองรับการกดEnter
   guessInput.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
       checkGuess();
